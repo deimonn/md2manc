@@ -1,0 +1,45 @@
+# temporary files created by various text editors
+*~
+# emacs lock files
+.#*
+
+# merge files created by git
+*.orig
+# reject files created by patch
+*.rej
+
+# byte compiled python modules
+*.pyc
+
+# vim swap files
+.*.sw?
+.sw?
+
+# os-specific files
+.DS_Store
+Thumbs.db
+
+# various tag programs
+/tags
+/TAGS
+/GPATH
+/GRTAGS
+/GSYMS
+/GTAGS
+/ID
+cscope.files
+cscope.out
+compile_flags.txt
+compile_commands.json
+
+# editor directories
+.idea
+.vscode
+.vs
+.zed
+pythonenv*
+
+# cache files and directories
+__pycache__
+.cache
+.clangd/

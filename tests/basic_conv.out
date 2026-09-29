@@ -1,0 +1,36 @@
+.TH "BASIC_CONV" 1 "" ""
+.nh
+.ad l
+.SH Name
+foo \- do something
+.SH Synopsis
+.nf
+\fBfoo\fP [\fB\-h\fP|\fB\-\-help\fP] [\fIfile\fP...]
+.fi
+.SH Description
+\fBfoo\fP does something, but we don't really know \fIwhat\fP\&.
+.IP \& 7n
+Indent me.
+.IP \& 7n
+Me also.
+.IP \(bu 2n
+List item A.
+.IP \(bu 2n
+List item B.
+.IP (1) 7n
+Numbered list item A.
+.IP (2) 7n
+Numbered list item B.
+.SH Options
+.TP 7n
+\fB\-h\fP, \fB\-\-help\fP
+Prints help text and exits.
+.TP 7n
+\fIfile\fP
+Input file.
+.SS Subheading 1
+First subheading.
+.SS Subheading 2
+Second subheading.
+.SH Exit status
+0 on success, non\-zero on error.
