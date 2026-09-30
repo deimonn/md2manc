@@ -71,7 +71,7 @@ static bool print_generated_by_comment = true;
 static int parse_options(int argc, char **argv)
 {
     for (;;) {
-        switch (getopt(argc, argv, ":-:hn:s:d:S:V:")) {
+        switch (getopt(argc, argv, ":-:ht:s:d:S:V:")) {
         case '-':
             if (strcmp(optarg, "help") == 0)
                 print_usage_and_exit(argv[0]);
