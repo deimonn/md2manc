@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# compile_flags.py: Simple script for Meson to generate compile_flags.txt files
+# (https://github.com/deimonn/compile_flags.py)
+
 # Copyright (c) 2026 Deimonn
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,9 +22,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-# Simple script for generating compile_flags.txt files for C/C++ Meson projects
-# See https://github.com/deimonn/compile_flags.py
 
 from os import getenv
 from sys import argv
