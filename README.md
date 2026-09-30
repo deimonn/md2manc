@@ -10,7 +10,7 @@
 
   - `md2manc` also supports highlighting for command usage syntax, so the synopsis in section 1 man pages can also be a code block.
 
-  - `md2manc` strips relative links, so an hypothetical HTML website can still link to elsewhere within it without cluttering the man page.
+  - `md2manc` strips relative links, so a hypothetical HTML website can still link to elsewhere within it without cluttering the man page.
 
 See [**md2manc**(1)](docs/md2manc.1.md) for details.
 
