@@ -12,6 +12,8 @@
 
   - `md2manc` strips relative links, so an hypothetical HTML website can still link to elsewhere within it without cluttering the man page.
 
+See [**md2manc**(1)](docs/md2manc.1.md) for details.
+
 ## Building
 
 ### Prerequisites
