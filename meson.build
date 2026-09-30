@@ -74,24 +74,24 @@ custom_target(
     install_dir: get_option('mandir') + '/man1'
 )
 
-tests = [
-    {
-        'name': 'basic_conv',
-        'in': files('tests/basic_conv.md')[0],
-        'out': files('tests/basic_conv.out')[0]
-    }
+conv_tests = [
+    'basic_conv'
 ]
 
-foreach entry : tests
+foreach conv_test : conv_tests
     test_output = custom_target(
-        entry['name'],
+        conv_test,
         command: [md2manc, '--no-comment', '@INPUT@'],
-        input: entry['in'],
-        output: 'test_' + entry['name'] + '.out',
+        input: 'tests/' + conv_test + '.md',
+        output: 'test_' + conv_test + '.out',
         capture: true
     )
 
-    test(entry['name'] + '_test', diff, args: [test_output, entry['out']])
+    test(
+        conv_test + '_test',
+        diff,
+        args: [test_output] + files('tests/' + conv_test + '.out')
+    )
 endforeach
 
 meson.add_postconf_script('compile_flags.py', 'md2manc')
