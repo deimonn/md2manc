@@ -38,7 +38,7 @@ See Meson's [Quickstart Guide](https://mesonbuild.com/Quick-guide.html).
 
 Contributions are welcome. The code here follows the [Linux kernel coding style](https://kernel.org/doc/html/latest/process/coding-style.html) but with 4-space indentation, disregarding the **Conditional Compilation** section, and disregarding that which is only applicable inside the kernel.
 
-Code format is partially enforced using GNU indent by a **check-format** target, which prints out a diff when changes are necessary. Invoke the target with `ninja check-format` (ensure you have `indent` installed).
+Code format is partially enforced using GNU indent by the [check_format.sh](check_format.sh) script, which prints out a diff when changes are necessary. Invoke it like `./check_format.sh` (ensure you have `indent` installed).
 
 Beyond that, if you wish to contribute changes to the project, just ensure it builds cleanly and that all tests are passing.
 

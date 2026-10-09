@@ -34,13 +34,6 @@ sources = files(
     'src/text.c'
 )
 
-headers = files(
-    'src/block.h',
-    'src/diagnostic.h',
-    'src/span.h',
-    'src/text.h'
-)
-
 entities = custom_target(
     'entities.c',
     command: ['generate_named_entities.py', '@INPUT@'],
@@ -95,8 +88,3 @@ foreach conv_test : conv_tests
 endforeach
 
 meson.add_postconf_script('compile_flags.py', 'md2manc')
-
-run_target(
-	'check-format',
-	command: ['sh'] + files('check_format.sh') + sources + headers
-)
