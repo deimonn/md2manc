@@ -1,0 +1,31 @@
+name: Check format
+on:
+  pull_request:
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - 'CHANGELOG.md'
+      - 'LICENSE'
+      - 'README.md'
+      - 'compile_flags.py'
+  push:
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitignore'
+      - 'CHANGELOG.md'
+      - 'LICENSE'
+      - 'README.md'
+      - 'compile_flags.py'
+jobs:
+  check-format:
+    name: Check format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install packages
+        run: sudo apt install -y indent
+
+      - name: Check format
+        run: ./check_format.sh
