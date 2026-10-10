@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Install packages
+      - name: Fetch dependencies
         run: sudo apt install -y indent
 
       - name: Check format
