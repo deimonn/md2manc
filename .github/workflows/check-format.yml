@@ -1,21 +1,19 @@
 name: Check format
 on:
   pull_request:
-    paths-ignore:
-      - '.editorconfig'
-      - '.gitignore'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
-      - 'README.md'
-      - 'compile_flags.py'
+    paths:
+      - '.github/workflows/check-format.yml'
+      - '.indent.pro'
+      - 'check_format.sh'
+      - '**.c'
+      - '**.h'
   push:
-    paths-ignore:
-      - '.editorconfig'
-      - '.gitignore'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
-      - 'README.md'
-      - 'compile_flags.py'
+    paths:
+      - '.github/workflows/check-format.yml'
+      - '.indent.pro'
+      - 'check_format.sh'
+      - '**.c'
+      - '**.h'
 jobs:
   check-format:
     name: Check format
