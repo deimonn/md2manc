@@ -1,5 +1,6 @@
 name: Check format
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - '.github/workflows/check-format.yml'
