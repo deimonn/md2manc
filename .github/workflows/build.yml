@@ -1,0 +1,101 @@
+name: Build
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/build.yml'
+      - 'docs/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'generate_named_entities.py'
+      - 'meson.build'
+  push:
+    tags-ignore:
+      - '**'
+    paths:
+      - '.github/workflows/build.yml'
+      - 'docs/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'generate_named_entities.py'
+      - 'meson.build'
+  release:
+    types: ['published']
+jobs:
+  build:
+    name: Build
+    permissions:
+      contents: "write"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-26.04
+            label: linux-x64
+            shell: sh
+            deps: sudo apt install -y meson libmd4c-dev
+
+          - os: ubuntu-26.04-arm
+            label: linux-arm64
+            shell: sh
+            deps: sudo apt install -y meson libmd4c-dev
+
+          - os: macos-26-intel
+            label: macos-x64
+            shell: sh
+            deps: brew install meson md4c
+
+          - os: macos-26
+            label: macos-arm64
+            shell: sh
+            deps: brew install meson md4c
+
+          - os: windows-2025
+            label: windows-x64
+            shell: msys2 {0}
+            deps: meson md4c
+
+          - os: windows-11-arm
+            label: windows-arm64
+            shell: msys2 {0}
+            deps: meson md4c
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    steps:
+      - name: Setup environment
+        if: ${{ startsWith(matrix.os, 'windows-') }}
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ matrix.msystem }}
+          pacboy: ${{ matrix.deps }}
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Fetch dependencies
+        if: ${{ ! startsWith(matrix.os, 'windows-') }}
+        run: ${{ matrix.deps }}
+
+      - name: Configure
+        run: meson setup builddir -Dbuildtype=debugoptimized -Dprefix=/
+
+      - name: Build
+        run: meson compile -C builddir
+
+      - name: Test
+        run: meson test -C builddir
+
+      - name: Install
+        run: DESTDIR="$(pwd)/builddir/md2manc-${{ github.ref_name }}" meson install -C builddir
+        if: github.event_name == 'release'
+
+      - name: Create release archive
+        run: tar -C builddir -vacf md2manc-${{ github.ref_name }}-${{ matrix.label }}.tar.gz md2manc-${{ github.ref_name }}
+        if: github.event_name == 'release'
+
+      - name: Upload release archive
+        run: gh release upload ${{ github.ref_name }} md2manc-${{ github.ref_name }}-${{ matrix.label }}.tar.gz
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.event_name == 'release'
