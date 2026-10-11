@@ -9,8 +9,6 @@ on:
       - '**.c'
       - '**.h'
   push:
-    tags-ignore:
-      - '**'
     paths:
       - '.github/workflows/check-format.yml'
       - '.indent.pro'
