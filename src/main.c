@@ -3,6 +3,9 @@
 #include "span.h"
 #include "text.h"
 
+#define OPTPARSE_IMPLEMENTATION
+#include "optparse.h"
+
 #ifdef _HAS_SIGTRACE
 #include <sigtrace.h>
 #endif
