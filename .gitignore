@@ -43,3 +43,6 @@ pythonenv*
 __pycache__
 .cache
 .clangd/
+
+# ci/cd artifacts
+/*.tar.gz
