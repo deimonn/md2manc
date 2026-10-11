@@ -296,22 +296,36 @@ static int convert_markdown(const char *text, unsigned int length)
 
 static void read_file(FILE *instream, char **text_out, size_t *size_out)
 {
-    FILE *memstream = open_memstream(text_out, size_out);
+    size_t size = 0;
+    size_t cap = 4096;
 
-    if (!memstream) {
-        error("failed to create memstream: %s", strerror(errno));
+    char *text = malloc(cap);
+
+    if (!text) {
+        error("failed to allocate memory: %s", strerror(errno));
         exit(1);
     }
 
     while (!feof(instream) && !ferror(instream)) {
         char buffer[4096];
-
         size_t bytes = fread(buffer, 1, sizeof(buffer), instream);
 
-        fwrite(buffer, 1, bytes, memstream);
+        if (size + bytes > cap) {
+            cap *= 2;
+            text = realloc(text, cap);
+
+            if (!text) {
+                error("failed to reallocate memory: %s", strerror(errno));
+                exit(1);
+            }
+        }
+
+        memcpy(text + size, buffer, bytes);
+        size += bytes;
     }
 
-    fclose(memstream);
+    *text_out = text;
+    *size_out = size;
 }
 
 static void infer_title_and_section(char *path)
