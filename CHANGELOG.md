@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Added support for building and running md2manc on Windows
+- Added `--title`, `--section`, `--date`, `--source` and `--volume` flags as synonyms to their short option counterparts
+
+### Fixed
+
+- Fixed long options being unusable on some systems due to reliance on non-standard behavior
 
 ## [0.1.1](https://github.com/deimonn/md2manc/compare/0.1.0...0.1.1) - 2026-09-30
 
