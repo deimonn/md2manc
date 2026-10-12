@@ -30,7 +30,7 @@ jobs:
         run: ninja test -C builddir
 
       - name: Compile coverage
-        run: lcov -c -d builddir -o builddir/app.info
+        run: lcov --ignore-errors mismatch -c -d builddir -o builddir/app.info
 
       - name: Upload coverage
         uses: coverallsapp/github-action@v2
