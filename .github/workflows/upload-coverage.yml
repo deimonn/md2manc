@@ -1,0 +1,40 @@
+name: Upload coverage
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/upload-coverage.yml'
+      - 'docs/**'
+      - 'src/**'
+      - 'tests/**'
+      - 'generate_named_entities.py'
+      - 'meson.build'
+jobs:
+  upload-coverage:
+    name: Upload coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Fetch dependencies
+        run: sudo apt install -y meson libmd4c-dev lcov
+
+      - name: Configure
+        run: meson setup builddir -Db_coverage=true
+
+      - name: Build
+        run: ninja -C builddir
+
+      - name: Test
+        run: ninja test -C builddir
+
+      - name: Compile coverage
+        run: lcov -c -d builddir -o builddir/app.info
+
+      - name: Upload coverage
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          file: builddir/app.info
+          format: lcov
