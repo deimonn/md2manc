@@ -2,6 +2,8 @@ name: Upload coverage
 on:
   workflow_dispatch:
   push:
+    branches:
+      - '*'
     paths:
       - '.github/workflows/upload-coverage.yml'
       - 'docs/**'

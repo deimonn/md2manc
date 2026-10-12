@@ -9,6 +9,8 @@ on:
       - '**.c'
       - '**.h'
   push:
+    branches:
+      - '*'
     paths:
       - '.github/workflows/check-format.yml'
       - '.indent.pro'

@@ -10,6 +10,8 @@ on:
       - 'generate_named_entities.py'
       - 'meson.build'
   push:
+    branches:
+      - '*'
     paths:
       - '.github/workflows/build.yml'
       - 'docs/**'
