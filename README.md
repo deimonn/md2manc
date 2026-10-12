@@ -2,7 +2,7 @@
 
 `md2manc` is yet another tool joining the "markdown to manpage converter" club. Unlike many such other tools, however:
 
-- `md2manc` is pretty plain and portable to any POSIX-compliant system.
+- `md2manc` is pretty plain and portable.
 
 - `md2manc` seeks to keep the source markdown suitable for translation to HTML too, rather than locking the entire document to man page generation only. To this end:
 
@@ -18,7 +18,7 @@ See [**md2manc**(1)](docs/md2manc.1.md) for details.
 
 ### Prerequisites
 
-- POSIX.1-2008 environment
+- UNIX-like environment (use [MSYS2](https://www.msys2.org/) on Windows)
 - C99 compiler
 - Meson ≥1.1
 - [md4c](https://github.com/mity/md4c) ≥0.5
