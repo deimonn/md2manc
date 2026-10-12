@@ -82,13 +82,13 @@ jobs:
         run: meson setup builddir -Dbuildtype=debugoptimized -Dprefix=/
 
       - name: Build
-        run: meson compile -C builddir
+        run: ninja -C builddir
 
       - name: Test
-        run: meson test -C builddir
+        run: ninja test -C builddir
 
       - name: Install
-        run: DESTDIR="$(pwd)/builddir/md2manc-${{ github.ref_name }}" meson install -C builddir
+        run: DESTDIR="$(pwd)/builddir/md2manc-${{ github.ref_name }}" ninja install -C builddir
         if: github.event_name == 'release'
 
       - name: Create release archive
