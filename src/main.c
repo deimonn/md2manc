@@ -15,7 +15,6 @@
 #include <assert.h>
 #include <ctype.h>
 #include <errno.h>
-#include <getopt.h>
 #include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -70,50 +69,60 @@ static const char *volume = NULL;
 
 static bool print_generated_by_comment = true;
 
-static int parse_options(int argc, char **argv)
+enum {
+    longopt_version = 256,
+    longopt_no_comment
+};
+
+static const struct optparse_long longopts[] = {
+    {"help", 'h', OPTPARSE_NONE},
+    {"version", longopt_version, OPTPARSE_NONE},
+    {NULL, 't', OPTPARSE_REQUIRED},
+    {NULL, 's', OPTPARSE_REQUIRED},
+    {NULL, 'd', OPTPARSE_REQUIRED},
+    {NULL, 'S', OPTPARSE_REQUIRED},
+    {NULL, 'V', OPTPARSE_REQUIRED},
+    {"no-comment", longopt_no_comment, OPTPARSE_NONE},
+    {0}
+};
+
+static int parse_options(char **argv)
 {
+    struct optparse options;
+
+    optparse_init(&options, argv);
+
     for (;;) {
-        switch (getopt(argc, argv, ":-:ht:s:d:S:V:")) {
-        case '-':
-            if (strcmp(optarg, "help") == 0)
-                print_usage_and_exit(argv[0]);
+        int longindex;
 
-            if (strcmp(optarg, "version") == 0)
-                print_version_and_exit();
-
-            if (strcmp(optarg, "no-comment") == 0) {
-                print_generated_by_comment = false;
-                continue;
-            }
-
-            error("unknown option '--%s'", optarg);
-            exit(2);
+        switch (optparse_long(&options, longopts, &longindex)) {
         case 'h':
             print_usage_and_exit(argv[0]);
-            continue;
+        case longopt_version:
+            print_version_and_exit();
         case 't':
-            title = optarg;
+            title = options.optarg;
             continue;
         case 's':
-            section = optarg;
+            section = options.optarg;
             continue;
         case 'd':
-            date = optarg;
+            date = options.optarg;
             continue;
         case 'S':
-            source = optarg;
+            source = options.optarg;
             continue;
         case 'V':
-            volume = optarg;
+            volume = options.optarg;
             continue;
-        case ':':
-            error("missing argument for option '-%c'", optopt);
-            exit(2);
+        case longopt_no_comment:
+            print_generated_by_comment = false;
+            continue;
         case '?':
-            error("unknown option '-%c'", optopt);
+            error("%s", options.errmsg);
             exit(2);
         default:
-            return optind;
+            return options.optind;
         }
     }
 }
@@ -360,7 +369,7 @@ int main(int argc, char **argv)
     sigtrace(sigtrace_faults);
 #endif
 
-    int inarg = parse_options(argc, argv);
+    int inarg = parse_options(argv);
     char *inpath = argv[inarg];
 
     if (inarg + 1 < argc)
