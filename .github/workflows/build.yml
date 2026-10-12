@@ -54,13 +54,13 @@ jobs:
             label: windows-x64
             shell: msys2 {0}
             msystem: UCRT64
-            deps: 'base-devel: github-cli gcc meson md4c'
+            deps: 'base-devel: git github-cli gcc meson md4c'
 
           - os: windows-11-arm
             label: windows-arm64
             shell: msys2 {0}
             msystem: CLANGARM64
-            deps: 'base-devel: github-cli gcc meson md4c'
+            deps: 'base-devel: git github-cli gcc meson md4c'
     runs-on: ${{ matrix.os }}
     defaults:
       run:
