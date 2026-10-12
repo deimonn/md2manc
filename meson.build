@@ -83,7 +83,7 @@ foreach conv_test : conv_tests
     test(
         conv_test + '_test',
         diff,
-        args: [test_output] + files('tests/' + conv_test + '.out')
+        args: ['-b', test_output] + files('tests/' + conv_test + '.out')
     )
 endforeach
 
