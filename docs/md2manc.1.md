@@ -27,25 +27,25 @@ With no _input-file_, the _title_ defaults to UNTITLED. Use **-t** to set it exp
 
   If passed, the tool just prints the program version and exits.
 
-+ **-t** _title_
++ **-t**, **--title** _title_
 
   Explicitly sets the man page title instead of trying to infer it.
 
-+ **-s** _section_
++ **-s**, **--section** _section_
 
   Explicitly sets the man page section number instead of trying to infer it.
 
-+ **-d** _date_
++ **-d**, **--date** _date_
 
   Sets the man page's center footer, which is conventionally expected to be the date of the last non-trivial change to the man page; e.g. "2026-09-27".
 
   Many projects just set this to the current date (when the page is generated) instead.
 
-+ **-S** _source_
++ **-S**, **--source** _source_
 
   Sets the man page's left footer, which is conventionally expected to be project name and version (i.e. its 'source'); e.g. "md2manc 0.1.0".
 
-+ **-V** _volume_
++ **-V**, **--volume** _volume_
 
   Explicitly sets the man page's section name instead of using the **man**(1) program's default.
 
