@@ -1,5 +1,9 @@
 # md2manc
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/deimonn/md2manc/build.yml?branch=master&event=push)](https://github.com/deimonn/md2manc/actions/workflows/build.yml?query=event%3Apush+branch%3Amaster)
+[![Test Coverage](https://img.shields.io/coverallsCoverage/github/deimonn/md2manc?branch=master)](https://coveralls.io/github/deimonn/md2manc)
+[![Latest Release](https://img.shields.io/github/v/release/deimonn/md2manc?include_prereleases)](https://github.com/deimonn/md2manc/releases)
+
 `md2manc` is yet another tool joining the "markdown to manpage converter" club. Unlike many such other tools, however:
 
 - `md2manc` is pretty plain and portable.
