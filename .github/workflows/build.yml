@@ -90,15 +90,19 @@ jobs:
         run: ninja test -C builddir
 
       - name: Install
-        run: DESTDIR="$(pwd)/builddir/md2manc-${{ github.ref_name }}" ninja install -C builddir
-        if: github.event_name == 'release'
+        run: DESTDIR="$(pwd)/builddir/package/md2manc" ninja install -C builddir
 
-      - name: Create release archive
-        run: tar -C builddir -vacf md2manc-${{ github.ref_name }}-${{ matrix.label }}.tar.gz md2manc-${{ github.ref_name }}
-        if: github.event_name == 'release'
+      - name: Package
+        run: tar -C builddir/package -vacf md2manc-${{ matrix.label }}.tar.gz md2manc
 
-      - name: Upload release archive
-        run: gh release upload ${{ github.ref_name }} md2manc-${{ github.ref_name }}-${{ matrix.label }}.tar.gz
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          path: md2manc-${{ matrix.label }}.tar.gz
+          archive: false
+
+      - name: Upload release
+        run: gh release upload ${{ github.ref_name }} md2manc-${{ matrix.label }}.tar.gz
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: github.event_name == 'release'
