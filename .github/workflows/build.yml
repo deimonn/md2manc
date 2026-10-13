@@ -92,6 +92,9 @@ jobs:
       - name: Install
         run: DESTDIR="$(pwd)/builddir/package/md2manc" ninja install -C builddir
 
+      - name: Copy license
+        run: cp LICENSE builddir/package/md2manc
+
       - name: Package
         run: tar -C builddir/package -vacf md2manc-${{ matrix.label }}.tar.gz md2manc
 
