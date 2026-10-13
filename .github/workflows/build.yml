@@ -82,6 +82,8 @@ jobs:
 
       - name: Configure
         run: meson setup builddir -Dbuildtype=debugoptimized -Dprefix=/
+        env:
+          MSYS2_ARG_CONV_EXCL: '*'
 
       - name: Build
         run: ninja -C builddir
