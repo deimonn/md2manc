@@ -95,6 +95,13 @@ jobs:
       - name: Copy license
         run: cp LICENSE builddir/package/md2manc
 
+      - name: Copy dependencies
+        if: ${{ startsWith(matrix.os, 'windows-') }}
+        run: |
+          cp /${{ matrix.msystem }}/bin/libmd4c.dll builddir/package/md2manc/bin &&
+          mkdir -p builddir/package/md2manc/licenses &&
+          cp -r /${{ matrix.msystem }}/share/licenses/md4c builddir/package/md2manc/licenses
+
       - name: Package
         run: tar -C builddir/package -vacf md2manc-${{ matrix.label }}.tar.gz md2manc
 
